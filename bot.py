@@ -83,6 +83,7 @@ def main():
         app.run_polling()
     except Exception as e:
         # logger.error(f"Error in main: {e}", exc_info=True)
+        await update.message.reply_text("Error in main")
 
 if __name__ == "__main__":
     main()
