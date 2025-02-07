@@ -4,5 +4,5 @@ torch==2.4.1
 TTS==0.14.3
 opencv-python==4.8.0.76
 mediapipe==0.10.11
-numpy
+numpy==1.21.6
 ffmpeg-python
