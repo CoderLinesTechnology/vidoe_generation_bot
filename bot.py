@@ -84,5 +84,5 @@ def main():
     except Exception as e:
         # logger.error(f"Error in main: {e}", exc_info=True)
 
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
