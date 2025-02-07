@@ -2,6 +2,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters
 import asyncio
 import logging
 import os
+import sys
 
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -11,7 +12,7 @@ if not BOT_TOKEN:
 
 # Set up logging
 logging.basicConfig(
-    filename="/tmp/bot_errors.log",
+    stream=sys.stdout,  # Logs to standard output (captured by OpenShift)
     level=logging.ERROR,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
