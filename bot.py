@@ -4,11 +4,9 @@ import asyncio
 import os
 import sys
 
-
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
     raise ValueError("BOT_TOKEN environment variable is not set!")
-
 
 # Set up logging
 # logging.basicConfig(
@@ -17,8 +15,6 @@ if not BOT_TOKEN:
 #     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 # )
 # logger = logging.getLogger(__name__)
-
-
 
 async def process_video(video_path, chat_id):
     # Extract voice and train/model
