@@ -11,7 +11,7 @@ RUN pip install --upgrade pip
 COPY requirements.txt .
 
 # Install the Python dependencies from the requirements.txt file
-RUN pip install -r requirements.txt
+RUN pip install --use-deprecated=legacy-resolver -r requirements.txt
 
 # Copy the rest of the application files into the container
 COPY . .
