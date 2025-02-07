@@ -6,7 +6,7 @@ RUN mkdir -p /app && chown -R 1001:0 /app
 WORKDIR /app
 
 # (Switch to non-root user if applicable)
-USER 1001
+#USER 1001
 
 # Upgrade pip to the latest version
 RUN pip install --upgrade pip
