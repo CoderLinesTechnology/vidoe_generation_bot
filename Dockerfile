@@ -1,10 +1,20 @@
-FROM python:3.8-slim  # Or any base image you're using
+# Start with the base Python 3.8 slim image
+FROM python:3.8-slim
 
-# Upgrade pip
+# Set the working directory inside the container
+WORKDIR /app
+
+# Upgrade pip to the latest version
 RUN pip install --upgrade pip
 
-# Install your other dependencies
+# Copy the requirements file into the container
 COPY requirements.txt .
+
+# Install the Python dependencies from the requirements.txt file
 RUN pip install -r requirements.txt
 
-# Other instructions to set up your application
+# Copy the rest of the application files into the container
+COPY . .
+
+# Command to run the application (you can modify this based on your project)
+CMD ["python", "bot.py"]  
