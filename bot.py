@@ -11,7 +11,7 @@ if not BOT_TOKEN:
 
 # Set up logging
 logging.basicConfig(
-    filename="bot_errors.log",
+    filename="/tmp/bot_errors.log",
     level=logging.ERROR,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )

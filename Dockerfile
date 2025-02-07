@@ -2,7 +2,11 @@
 FROM python:3.8-slim
 
 # Set the working directory inside the container
+RUN mkdir -p /app && chown -R 1001:0 /app
 WORKDIR /app
+
+# (Switch to non-root user if applicable)
+USER 1001
 
 # Upgrade pip to the latest version
 RUN pip install --upgrade pip
