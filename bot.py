@@ -1,20 +1,11 @@
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 import asyncio
-# import logging
 import os
 import sys
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
     raise ValueError("BOT_TOKEN environment variable is not set!")
-
-# Set up logging
-# logging.basicConfig(
-#     stream=sys.stdout,  # Logs to standard output (captured by OpenShift)
-#     level=logging.ERROR,
-#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-# )
-# logger = logging.getLogger(__name__)
 
 async def process_video(video_path, chat_id):
     # Extract voice and train/model
@@ -42,7 +33,6 @@ async def start(update, context):
     try:
         await update.message.reply_text("Upload a video for voice/facial learning.")
     except Exception as e:
-        # logger.error(f"Error in start: {e}", exc_info=True)
         await update.message.reply_text("An error occurred. Please try again.")
     
 async def handle_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -52,7 +42,6 @@ async def handle_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
         asyncio.create_task(process_video("user_video.mp4", update.message.chat_id))
         await update.message.reply_text("Processing video... Upload a photo next.")
     except Exception as e:
-        # logger.error(f"Error in handle_video: {e}", exc_info=True)
         await update.message.reply_text("Failed to process the video. Please try again.")
 
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -61,7 +50,6 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await photo.download_to_drive("user_photo.jpg")
         await update.message.reply_text("Photo received. Type the message to synthesize.")
     except Exception as e:
-        # logger.error(f"Error in handle_photo: {e}", exc_info=True)
         await update.message.reply_text("Failed to process the photo. Please try again.")
 
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -70,7 +58,6 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         asyncio.create_task(generate_video("user_photo.jpg", text, update.message.chat_id))
         await update.message.reply_text("Generating video...")
     except Exception as e:
-        # logger.error(f"Error in handle_text: {e}", exc_info=True)
         await update.message.reply_text("Failed to generate the video. Please try again.")
 
 def main():
