@@ -74,16 +74,12 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Failed to generate the video. Please try again.")
 
 def main():
-    try:
-        app = Application.builder().token(BOT_TOKEN).build()
-        app.add_handler(CommandHandler("start", start))
-        app.add_handler(MessageHandler(filters.VIDEO, handle_video))
-        app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
-        app.add_handler(MessageHandler(filters.TEXT, handle_text))
-        app.run_polling()
-    except Exception as e:
-        # logger.error(f"Error in main: {e}", exc_info=True)
-        await update.message.reply_text("Error in main")
+    app = Application.builder().token(BOT_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.VIDEO, handle_video))
+    app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
+    app.add_handler(MessageHandler(filters.TEXT, handle_text))
+    app.run_polling()
 
 if __name__ == "__main__":
     main()
