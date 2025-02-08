@@ -30,35 +30,23 @@ async def generate_video(photo_path, text, chat_id):
 
 
 async def start(update, context):
-    try:
-        await update.message.reply_text("Upload a video for voice/facial learning.")
-    except Exception as e:
-        await update.message.reply_text("An error occurred. Please try again.")
+    await update.message.reply_text("Upload a video for voice/facial learning.")
     
 async def handle_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        video = await update.message.video.get_file()
-        await video.download_to_drive("user_video.mp4")
-        asyncio.create_task(process_video("user_video.mp4", update.message.chat_id))
-        await update.message.reply_text("Processing video... Upload a photo next.")
-    except Exception as e:
-        await update.message.reply_text("Failed to process the video. Please try again.")
-
+    video = await update.message.video.get_file()
+    await video.download_to_drive("user_video.mp4")
+    asyncio.create_task(process_video("user_video.mp4", update.message.chat_id))
+    await update.message.reply_text("Processing video... Upload a photo next.")
+  
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        photo = await update.message.photo[-1].get_file()
-        await photo.download_to_drive("user_photo.jpg")
-        await update.message.reply_text("Photo received. Type the message to synthesize.")
-    except Exception as e:
-        await update.message.reply_text("Failed to process the photo. Please try again.")
+    photo = await update.message.photo[-1].get_file()
+    await photo.download_to_drive("user_photo.jpg")
+    await update.message.reply_text("Photo received. Type the message to synthesize.")
 
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        text = update.message.text
-        asyncio.create_task(generate_video("user_photo.jpg", text, update.message.chat_id))
-        await update.message.reply_text("Generating video...")
-    except Exception as e:
-        await update.message.reply_text("Failed to generate the video. Please try again.")
+    text = update.message.text
+    asyncio.create_task(generate_video("user_photo.jpg", text, update.message.chat_id))
+    await update.message.reply_text("Generating video...")
 
 def main():
     app = Application.builder().token(BOT_TOKEN).build()
