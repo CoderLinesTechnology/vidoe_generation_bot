@@ -1,8 +1,9 @@
 # Start with the base Python 3.8 slim image
 FROM python:3.8-slim
 
-# Upgrade pip to the latest version
-RUN pip install --upgrade pip
+
+# Install system dependencies, including libgl1-mesa-glx for OpenCV
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
 
 # Copy the requirements file into the container
 COPY requirements.txt .
