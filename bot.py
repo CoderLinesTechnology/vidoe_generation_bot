@@ -1,7 +1,6 @@
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 import asyncio
 import os
-import sys
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
@@ -45,17 +44,6 @@ async def handle_text(update, context):
     text = update.message.text
     asyncio.create_task(generate_video("user_photo.jpg", text, update.message.chat_id))
     await update.message.reply_text("Generating video...")
-
-def main():
-    app = Application.builder().token(BOT_TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.VIDEO, handle_video))
-    app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
-    app.add_handler(MessageHandler(filters.TEXT, handle_text))
-    app.run_polling()
-
-if __name__ == "__main__":
-    main()
 
 # Additional functions for video processing and voice cloning
 
@@ -102,3 +90,14 @@ def clone_voice(audio_path, text):
     tts = TTS(model_name="tortoise", progress_bar=False, gpu=True)
     tts.tts_to_file(text=text, file_path="output_audio.wav", voice_dir="voices/", speaker_wav=audio_path)
     return "output_audio.wav"
+
+def main():
+    app = Application.builder().token(BOT_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.VIDEO, handle_video))
+    app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
+    app.add_handler(MessageHandler(filters.TEXT, handle_text))
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
